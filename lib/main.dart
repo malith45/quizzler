@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'questions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,21 +32,36 @@ class QuizPage extends StatefulWidget {
 }
 
 class QuizPageState extends State<QuizPage> {
+  List<Widget> scoreKeeper = [];
+
+  int qNum = 0;
+
+  List<Questions> questionList = [
+    Questions(
+        questionText: 'You can lead a cow down stairs but not up stairs.',
+        answer: false),
+    Questions(
+        questionText:
+            'Approximately one quarter of human bones are in the feet.',
+        answer: true),
+    Questions(questionText: 'A slug\'s blood is green.', answer: true)
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questionList[qNum].questionText,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
                 ),
@@ -65,7 +81,17 @@ class QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                bool correct = questionList[qNum].answer;
+
+                if (correct == true) {
+                  debugPrint('Correct Answer');
+                } else {
+                  debugPrint('Wrong Answer');
+                }
+                setState(() {
+                  qNum++;
+                  debugPrint('Next');
+                });
               },
               child: const Text('True'),
             ),
@@ -83,14 +109,31 @@ class QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                bool correct = questionList[qNum].answer;
+
+                if (correct == false) {
+                  debugPrint('Correct Answer');
+                } else {
+                  debugPrint('Wrong Answer');
+                }
+                setState(() {
+                  qNum++;
+                });
               },
               child: const Text('False'),
             ),
           ),
         ),
         //TODO: Code
+        Row(
+          children: scoreKeeper,
+        )
       ],
     );
   }
 }
+/*
+question1: 'You can lead a cow down stairs but not up stairs.', false,
+question2: 'Approximately one quarter of human bones are in the feet.', true,
+question3: 'A slug\'s blood is green.', true,
+*/
