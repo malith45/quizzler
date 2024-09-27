@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'questions.dart';
+import 'quiz_brain.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,16 +36,7 @@ class QuizPageState extends State<QuizPage> {
 
   int qNum = 0;
 
-  List<Questions> questionList = [
-    Questions(
-        questionText: 'You can lead a cow down stairs but not up stairs.',
-        answer: false),
-    Questions(
-        questionText:
-            'Approximately one quarter of human bones are in the feet.',
-        answer: true),
-    Questions(questionText: 'A slug\'s blood is green.', answer: true)
-  ];
+  QuizBrain quizBrain = QuizBrain();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +50,7 @@ class QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionList[qNum].questionText,
+                quizBrain.questionList[qNum].questionText,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -81,7 +72,7 @@ class QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correct = questionList[qNum].answer;
+                bool correct = quizBrain.questionList[qNum].answer;
 
                 if (correct == true) {
                   debugPrint('Correct Answer');
@@ -109,7 +100,7 @@ class QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correct = questionList[qNum].answer;
+                bool correct = quizBrain.questionList[qNum].answer;
 
                 if (correct == false) {
                   debugPrint('Correct Answer');
