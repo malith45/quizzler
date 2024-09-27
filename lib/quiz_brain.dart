@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'questions.dart';
 
 class QuizBrain {
-  List<Questions> questionList = [
+  int _qNum = 0;
+
+  final List<Questions> _questionList = [
     Questions(
         questionText: 'Some cats are actually allergic to humans',
         answer: true),
@@ -46,4 +50,31 @@ class QuizBrain {
             'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         answer: true),
   ];
+
+  String getQuestionText() {
+    return _questionList[_qNum].questionText;
+  }
+
+  bool getAnswer() {
+    return _questionList[_qNum].answer;
+  }
+
+  void nextQuestion() {
+    if (_qNum < _questionList.length - 1) {
+      _qNum++;
+    } else {}
+  }
+
+  bool isFinished() {
+    if (_qNum >= _questionList.length - 1) {
+      debugPrint('Now returning true');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void reset() {
+    _qNum = 0;
+  }
 }
